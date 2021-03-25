@@ -1,4 +1,5 @@
-﻿@model Habits.Models.StatisticForDateViewModel
+﻿@using Habits.Data.Enums
+@model Habits.Models.StatisticForDateViewModel
 @{
     Layout = "_Layout";
     ViewData["Title"] = "View";
@@ -45,6 +46,12 @@
                     <input asp-for="Steps" placeholder="Steps" class="form-control" />
                     <span asp-validation-for="Steps" class="text-danger"></span>
                 </div>
+                <div class="form-group">
+                    <select asp-for="Sport" class="form-control" asp-items="Html.GetEnumSelectList<Sport>()">
+                        <option selected="selected" value="">Select sport</option>
+                    </select>
+                    <span asp-validation-for="Sport" class="text-danger"></span>
+                </div>
                 <div class="form-group form-check">
                     <div class="custom-control custom-checkbox">
                         <input asp-for="@Model.Stretched" />
@@ -58,7 +65,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.ActionLink("Back", "GetStatisticByDate", "DailyStatistic", new { date = Model.Date });
+                    @Html.ActionLink("Back", "GetStatisticByDate", "DailyStatistic", new { date = Model.Date })
                     <input type="submit" value="Submit" class="btn btn-primary" />
                 </div>
             </form>

@@ -51,6 +51,7 @@ namespace Habits.Service
             statisticToEdit.MorningWeight = dailyStatistic.MorningWeight;
             statisticToEdit.Stretched = dailyStatistic.Stretched;
             statisticToEdit.Steps = dailyStatistic.Steps;
+            statisticToEdit.Sport = dailyStatistic.Sport;
 
             _dailyStatisticRepository.Update(dailyStatistic);
 

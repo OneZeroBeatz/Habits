@@ -1,4 +1,5 @@
 ﻿using Habits.Data;
+using Habits.Data.Enums;
 using Habits.Repo.Base;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,8 @@ namespace Habits.Repo
                     Id = 20 - i,
                     ModifiedDate = DateTime.UtcNow,
                     MorningWeight = i % 2 == 1 ? 83 : 99,
-                    Stretched = i % 3 == 1
+                    Stretched = i % 3 == 1,
+                    Sport = (Sport)(i % 3)
                 };
 
                 _entities.Add(record.Id, record);

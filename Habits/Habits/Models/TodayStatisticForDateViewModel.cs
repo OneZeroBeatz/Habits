@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Habits.Data.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Habits.Models
@@ -20,5 +21,6 @@ namespace Habits.Models
         public string City { get; set; }
         public bool Stretched { get; set; }
         public int? Steps { get; set; }
+        public Sport? Sport { get; set; }
     }
 }

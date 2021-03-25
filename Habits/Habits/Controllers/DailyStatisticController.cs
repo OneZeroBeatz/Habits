@@ -44,7 +44,8 @@ namespace Habits.Controllers
                 LastMealTimeStamp = statisticForDate.LastMealTimeStamp,
                 MorningWeight = statisticForDate.MorningWeight,
                 Steps = statisticForDate.Steps,
-                Stretched = statisticForDate.Stretched
+                Stretched = statisticForDate.Stretched,
+                Sport = statisticForDate.Sport
             };
 
             return View(todayStatisticViewModel);
@@ -79,7 +80,8 @@ namespace Habits.Controllers
                 LastMealTimeStamp = model.LastMealTimeStamp,
                 MorningWeight = model.MorningWeight,
                 Steps = model.Steps,
-                Stretched = model.Stretched
+                Stretched = model.Stretched,
+                Sport = model.Sport
             };
 
             _dailyStatisticService.AddDailyStatistic(dailyStatistic);
@@ -104,7 +106,8 @@ namespace Habits.Controllers
                 LastMealTimeStamp = statisticForDate.LastMealTimeStamp,
                 MorningWeight = statisticForDate.MorningWeight,
                 Steps = statisticForDate.Steps,
-                Stretched = statisticForDate.Stretched
+                Stretched = statisticForDate.Stretched,
+                Sport = statisticForDate.Sport
             };
 
             return View(todayStatisticViewModel);
@@ -126,7 +129,8 @@ namespace Habits.Controllers
                 LastMealTimeStamp = model.LastMealTimeStamp,
                 MorningWeight = model.MorningWeight,
                 Steps = model.Steps,
-                Stretched = model.Stretched
+                Stretched = model.Stretched,
+                Sport = model.Sport
             };
 
             _dailyStatisticService.EditDailyStatistic(dailyStatistic);
