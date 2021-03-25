@@ -1,0 +1,101 @@
+﻿@model Habits.Models.StatisticForDateViewModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Index";
+}
+
+    <div>
+        <div class="row">
+            <div class="offset-md-5 col-sm-2">
+                @using (Html.BeginForm("GetStatisticByDate", "DailyStatistic", FormMethod.Get, new { id = "dailyStatisticDateForm" }))
+                {
+                    <div class="input-group">
+                        <input asp-for="Date" id="dailyStatisticDatePicker" type="text" class="form-control" value="@Model.Date.ToString("MM/dd/yyyy")" />
+                        <label class="input-group-btn" for="dailyStatisticDatePicker">
+                            <span class="btn btn-default">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </label>
+                        <span asp-validation-for="Date" class="text-danger"></span>
+                    </div>
+                }
+            </div>
+        </div>
+        <hr />
+        <dl class="row table table-striped">
+            @Html.HiddenFor(model => model.Id)
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.MorningWeight)
+            </dt>
+            <dd class="col-sm-10">
+                @(Model.MorningWeight.HasValue ? Model.MorningWeight.ToString() : "N/A")
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.LastMealTimeStamp)
+            </dt>
+            <dd class="col-sm-10">
+                @(Model.LastMealTimeStamp.HasValue ? Model.LastMealTimeStamp.ToString() : "N/A")
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.City)
+            </dt>
+            <dd class="col-sm-10">
+                @(!string.IsNullOrWhiteSpace(Model.City) ? Model.City : "N/A")
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Steps)
+            </dt>
+            <dd class="col-sm-10">
+                @(Model.Steps.HasValue ? Model.Steps.Value.ToString() : "N/A")
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Stretched)
+            </dt>
+            <dd class="col-sm-10">
+                @(@Model.Stretched ? "Yes" : "No")
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Fasted)
+            </dt>
+            <dd class="col-sm-10">
+                @(@Model.Fasted ? "Yes" : "No")
+            </dd>
+        </dl>
+
+        <div class="form-group">
+            @Html.ActionLink("Edit", "EditDailyStatistic", "DailyStatistic", new { date = Model.Date }, new { @class = "btn btn-primary" });
+        </div>
+    </div>
+
+@section Scripts
+{
+    <!-- Bootstrap -->
+    <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js'></script>
+    <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css' media="screen" />
+    <!-- Bootstrap -->
+    <!-- Bootstrap DatePicker -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" type="text/css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js" type="text/javascript"></script>
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                $("#dailyStatisticDatePicker").datepicker({
+                    buttonImageOnly: true,
+                    changeMonth: true,
+                    changeYear: true,
+                    maxDate: new Date,
+                    minDate: new Date(2007, 6, 12),
+                    icons: {
+                        date: 'glyphicon glyphicon-calendar',
+                    }
+                }).change(function () {
+                    $('#dailyStatisticDateForm').submit();
+                });
+            });
+        });
+    </script>
+}
