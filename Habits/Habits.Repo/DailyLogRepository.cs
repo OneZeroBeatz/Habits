@@ -7,14 +7,14 @@ using System.Linq;
 
 namespace Habits.Repo
 {
-    public class DailyStatisticsRepository : FileRepository<DailyStatistic>
+    public class DailyLogRepository : FileRepository<DailyLog>
     {
-        public DailyStatisticsRepository()
+        public DailyLogRepository()
         {
-            _entities = new Dictionary<long, DailyStatistic>(30);
+            _entities = new Dictionary<long, DailyLog>(30);
             for (int i = 20; i >= 0; i--)
             {
-                var record = new DailyStatistic
+                var record = new DailyLog
                 {
                     Date = DateTime.UtcNow.AddDays(-i).Date,
                     Steps = 300,
@@ -33,7 +33,7 @@ namespace Habits.Repo
             }
         }
 
-        public DailyStatistic GetByDate(DateTime date)
+        public DailyLog GetByDate(DateTime date)
         {
             return _entities.FirstOrDefault(s => s.Value.Date == date.Date).Value;
         }

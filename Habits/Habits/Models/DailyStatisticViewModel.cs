@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Habits.Models
 {
-    public class StatisticForDateViewModel
+    public class DailyStatisticViewModel
     {
         [HiddenInput]
         public long Id { get; set; }

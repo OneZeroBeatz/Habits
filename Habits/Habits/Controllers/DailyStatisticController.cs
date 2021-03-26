@@ -13,9 +13,9 @@ namespace Habits.Controllers
 {
     public class DailyStatisticController : Controller
     {
-        private readonly DailyStatisticService _dailyStatisticService;
+        private readonly DailyService _dailyStatisticService;
 
-        public DailyStatisticController(DailyStatisticService dailyStatisticService)
+        public DailyStatisticController(DailyService dailyStatisticService)
         {
             _dailyStatisticService = dailyStatisticService;
         }
@@ -31,11 +31,11 @@ namespace Habits.Controllers
         [HttpGet]
         public IActionResult GetStatisticByDate(DateTime date)
         {
-            var statisticForDate = _dailyStatisticService.GetStatisticForDate(date);
+            var statisticForDate = _dailyStatisticService.GetLogForDate(date);
             if (statisticForDate == null)
                 return RedirectToAction("CreateDailyStatistic", new { date });
 
-            var todayStatisticViewModel = new StatisticForDateViewModel
+            var todayStatisticViewModel = new DailyStatisticViewModel
             {
                 Date = statisticForDate.Date,
                 City = statisticForDate.City,
@@ -55,7 +55,7 @@ namespace Habits.Controllers
         [HttpGet]
         public IActionResult CreateDailyStatistic(DateTime date)
         {
-            var todayStatisticViewModel = new StatisticForDateViewModel
+            var todayStatisticViewModel = new DailyStatisticViewModel
             {
                 Date = date,
             };
@@ -65,14 +65,14 @@ namespace Habits.Controllers
 
         // POST: /DailyStatistic/CreateDailyStatistic
         [HttpPost]
-        public IActionResult CreateDailyStatistic(StatisticForDateViewModel model)
+        public IActionResult CreateDailyStatistic(DailyStatisticViewModel model)
         {
             if(!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            var dailyStatistic = new DailyStatistic
+            var dailyStatistic = new DailyLog
             {
                 City = model.City,
                 Date = model.Date,
@@ -84,7 +84,7 @@ namespace Habits.Controllers
                 Sport = model.Sport
             };
 
-            _dailyStatisticService.AddDailyStatistic(dailyStatistic);
+            _dailyStatisticService.AddDailyLog(dailyStatistic);
 
             return RedirectToAction("GetStatisticByDate", new { model.Date });
         }
@@ -93,11 +93,11 @@ namespace Habits.Controllers
         [HttpGet]
         public IActionResult EditDailyStatistic(DateTime date)
         {
-            var statisticForDate = _dailyStatisticService.GetStatisticForDate(date);
+            var statisticForDate = _dailyStatisticService.GetLogForDate(date);
             if (statisticForDate == null)
                 return RedirectToAction("CreateDailyStatistic", new { date });
 
-            var todayStatisticViewModel = new StatisticForDateViewModel
+            var todayStatisticViewModel = new DailyStatisticViewModel
             {
                 Date = statisticForDate.Date,
                 City = statisticForDate.City,
@@ -114,14 +114,14 @@ namespace Habits.Controllers
         }
         // POST: /DailyStatistic/EditDailyStatistic
         [HttpPost]
-        public IActionResult EditDailyStatistic(StatisticForDateViewModel model)
+        public IActionResult EditDailyStatistic(DailyStatisticViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            var dailyStatistic = new DailyStatistic
+            var dailyStatistic = new DailyLog
             {
                 City = model.City,
                 Date = model.Date,
@@ -133,7 +133,7 @@ namespace Habits.Controllers
                 Sport = model.Sport
             };
 
-            _dailyStatisticService.EditDailyStatistic(dailyStatistic);
+            _dailyStatisticService.EditDailyLog(dailyStatistic);
 
             return RedirectToAction("GetStatisticByDate", new { model.Date });
         }

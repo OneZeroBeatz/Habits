@@ -37,8 +37,9 @@ namespace Habits
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddTransient<DailyStatisticService, DailyStatisticService>();
-            services.AddSingleton<DailyStatisticsRepository, DailyStatisticsRepository>();
+            services.AddTransient<DailyService, DailyService>();
+            services.AddTransient<WeeklyService, WeeklyService>();
+            services.AddSingleton<DailyLogRepository, DailyLogRepository>();
             //services.AddScoped(typeof(IRepository<>), typeof(FileRepository<>));
             services.AddControllersWithViews();
 

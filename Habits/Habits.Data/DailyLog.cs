@@ -4,7 +4,7 @@ using System;
 
 namespace Habits.Data
 {
-    public class DailyStatistic : BaseEntity
+    public class DailyLog : BaseEntity
     {
         public DateTime Date { get; set; }
         public bool Fasted { get; set; }
