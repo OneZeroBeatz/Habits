@@ -37,5 +37,14 @@ namespace Habits.Repo
         {
             return _entities.FirstOrDefault(s => s.Value.Date == date.Date).Value;
         }
+
+        public List<DailyLog> GetDailyLogsForRange(DateTime startDate, DateTime endDate)
+        {
+            return _entities
+                .Where(log => log.Value.Date.CompareTo(startDate.Date) >= 0)
+                .Where(log => log.Value.Date.CompareTo(endDate.Date) <= 0)
+                .Select(x=>x.Value)
+                .ToList();
+        }
     }
 }

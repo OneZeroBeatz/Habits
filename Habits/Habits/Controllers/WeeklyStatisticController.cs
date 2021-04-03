@@ -7,6 +7,7 @@ using Habits.Data;
 using Habits.Models;
 using Habits.Service;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,10 +16,12 @@ namespace Habits.Controllers
     public class WeeklyStatisticController : Controller
     {
         private readonly WeeklyService _weeklyService;
+        private readonly DailyService _dailyService;
 
-        public WeeklyStatisticController(WeeklyService weeklyService)
+        public WeeklyStatisticController(WeeklyService weeklyService, DailyService dailyService)
         {
             _weeklyService = weeklyService;
+            _dailyService = dailyService;
         }
 
         // GET: /DailyStatistic/Index
@@ -37,15 +40,41 @@ namespace Habits.Controllers
         public IActionResult GetStatisticForWeek(int year, int weekInYear)
         {
             var weeksInYear = _weeklyService.GetWeeksForYear(year);
+            var targetWeek = weeksInYear.First(week => week.WeekNumber == weekInYear);
+            var weeklyLogs = _dailyService.GetDailyLogsForRange(targetWeek.StartDate.Date, targetWeek.EndDate.Date);
 
             var veiwModel = new WeeklyStatisticViewModel
             {
                 WeekInYear = weekInYear,
                 Weeks = weeksInYear,
-                Year = year
+                Year = year,
+                WeeklyLogs = weeklyLogs.Select(GenerateDailyLogViewModel).ToList()
             };
 
             return View(veiwModel);
+        }
+        public JsonResult GetWeeksForYear(int year)
+        {
+            var weeksForYear = _weeklyService.GetWeeksForYear(year);
+            return Json(weeksForYear);
+        }
+
+        private DailyStatisticViewModel GenerateDailyLogViewModel(DailyLog dailyLog)
+        {
+            var todayStatisticViewModel = new DailyStatisticViewModel
+            {
+                Date = dailyLog.Date,
+                City = dailyLog.City,
+                Fasted = dailyLog.Fasted,
+                Id = dailyLog.Id,
+                LastMealTimeStamp = dailyLog.LastMealTimeStamp,
+                MorningWeight = dailyLog.MorningWeight,
+                Steps = dailyLog.Steps,
+                Stretched = dailyLog.Stretched,
+                Sport = dailyLog.Sport
+            };
+
+            return todayStatisticViewModel;
         }
     }
 }

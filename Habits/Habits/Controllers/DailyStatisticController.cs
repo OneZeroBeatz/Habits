@@ -97,7 +97,7 @@ namespace Habits.Controllers
             if (statisticForDate == null)
                 return RedirectToAction("CreateDailyStatistic", new { date });
 
-            var todayStatisticViewModel = new DailyStatisticViewModel
+            var dailyStatisticForDate = new DailyStatisticViewModel
             {
                 Date = statisticForDate.Date,
                 City = statisticForDate.City,
@@ -110,7 +110,7 @@ namespace Habits.Controllers
                 Sport = statisticForDate.Sport
             };
 
-            return View(todayStatisticViewModel);
+            return View(dailyStatisticForDate);
         }
         // POST: /DailyStatistic/EditDailyStatistic
         [HttpPost]

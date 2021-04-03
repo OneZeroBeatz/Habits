@@ -1,6 +1,7 @@
 ﻿using Habits.Data;
 using Habits.Repo;
 using System;
+using System.Collections.Generic;
 
 namespace Habits.Service
 {
@@ -50,6 +51,11 @@ namespace Habits.Service
             _dailyLogRepository.Update(dailyLog);
 
             return dailyLog;
+        }
+
+        public List<DailyLog> GetDailyLogsForRange(DateTime startDate, DateTime endDate)
+        {
+            return _dailyLogRepository.GetDailyLogsForRange(startDate, endDate);
         }
     }
 }
